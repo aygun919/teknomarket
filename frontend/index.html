@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TeknoMarket — Veri Sayfasına Dayalı Teknoloji Alışverişi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ÜST BİLGİ ŞERİDİ -->
+<div class="top-strip">
+    <span>📦 2.500 TL üzeri siparişlerde ücretsiz kargo</span>
+    <span class="sep">·</span>
+    <span>🤖 Öneriler ürün veri sayfalarından üretilir, uydurma yok</span>
+</div>
+
+<!-- ANA HEADER -->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo">Tekno<span>Market</span></div>
+
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.5 19l-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+            <input type="text" id="search-input" placeholder="İşlemci, ekran kartı veya model ara..." />
+        </div>
+
+        <button class="assistant-toggle" id="assistant-toggle">
+            <span class="assistant-toggle-dot"></span>
+            AI Ürün Asistanı
+        </button>
+    </div>
+
+    <nav class="category-nav" id="category-nav">
+        <button class="cat-pill active" data-category="">Tüm Ürünler</button>
+    </nav>
+</header>
+
+<!-- AVANTAJ ŞERİDİ -->
+<div class="benefit-strip">
+    <div class="benefit-item"><b>Hızlı Teslimat</b><span>Seçili illerde ertesi gün</span></div>
+    <div class="benefit-item"><b>Ücretsiz Kargo</b><span>2.500 TL üzeri siparişlerde</span></div>
+    <div class="benefit-item"><b>14 Gün İade</b><span>Koşulsuz iade garantisi</span></div>
+    <div class="benefit-item"><b>Veri Sayfası Garantisi</b><span>AI önerileri gerçek stok/spec'e dayanır</span></div>
+</div>
+
+<main class="main-layout">
+
+    <!-- FİLTRE PANELİ -->
+    <aside class="filters" id="filters">
+        <div class="filter-block">
+            <h3>Alt Kategoriler</h3>
+            <div id="filter-categories" class="filter-list"></div>
+        </div>
+
+        <div class="filter-block">
+            <h3>Marka</h3>
+            <div id="filter-brands" class="filter-list"></div>
+        </div>
+
+        <div class="filter-block">
+            <h3>Fiyat Aralığı</h3>
+            <div class="price-range-row">
+                <input type="number" id="price-min" placeholder="Min TL" />
+                <span>—</span>
+                <input type="number" id="price-max" placeholder="Max TL" />
+            </div>
+            <button class="btn-apply-price" id="apply-price">Uygula</button>
+        </div>
+
+        <button class="btn-reset-filters" id="reset-filters">Filtreleri Temizle</button>
+    </aside>
+
+    <!-- ÜRÜN LİSTESİ -->
+    <section class="product-section">
+        <div class="results-bar">
+            <div class="results-count" id="product-count">Ürünler yükleniyor...</div>
+            <div class="sort-control">
+                <label for="sort-select">Sırala</label>
+                <select id="sort-select">
+                    <option value="relevance">Önerilenler</option>
+                    <option value="price-asc">Artan Fiyat</option>
+                    <option value="price-desc">Azalan Fiyat</option>
+                    <option value="stock-desc">Stok Durumu</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="product-grid" id="product-grid">
+            <div class="loading">Ürünler yükleniyor...</div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-col footer-brand">
+            <div class="logo">Tekno<span>Market</span></div>
+            <p>Ürün önerilerini gerçek teknik veri sayfalarından üreten,
+               yapay zeka destekli teknoloji alışveriş platformu.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Kategoriler</h4>
+            <div id="footer-categories"></div>
+        </div>
+        <div class="footer-col">
+            <h4>Kurumsal</h4>
+            <a href="#">Hakkımızda</a>
+            <a href="#">İletişim</a>
+            <a href="#">Sipariş Takibi</a>
+            <a href="#">İade &amp; Değişim</a>
+        </div>
+        <div class="footer-col">
+            <h4>Destek</h4>
+            <a href="#">Yardım Merkezi</a>
+            <a href="#">Kargo Bilgisi</a>
+            <a href="#">Garanti Koşulları</a>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 TeknoMarket — Bu bir staj/demo projesidir.</div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- AI Asistan Paneli -->
+<aside class="assistant-panel" id="assistant-panel">
+    <div class="assistant-header">
+        <div>
+            <div class="assistant-title">
+                <span class="assistant-toggle-dot"></span>
+                AI Ürün Asistanı
+            </div>
+            <div class="assistant-subtitle">Yalnızca mağaza veri sayfalarına göre yanıt verir</div>
+        </div>
+        <button class="assistant-close" id="assistant-close">✕</button>
+    </div>
+
+    <div class="assistant-messages" id="assistant-messages">
+        <div class="msg msg-bot">
+            Merhaba! Donanım, performans veya uyumluluk hakkında ne merak ediyorsun?
+            <br><br>
+            Örnek: <em>"En az 16GB RAM'i olan ve RTX 5070 Ti barındıran laptoplarınız hangileri?"</em>
+        </div>
+    </div>
+
+    <div class="assistant-suggestions" id="assistant-suggestions">
+        <button class="suggestion-chip">Makine öğrenmesi için güçlü laptop öner</button>
+        <button class="suggestion-chip">Hafif, uzun pilli iş laptopu arıyorum</button>
+        <button class="suggestion-chip">Anakartıma uygun en ucuz DDR5 RAM hangisi?</button>
+    </div>
+
+    <form class="assistant-input-row" id="assistant-form">
+        <input
+            type="text"
+            id="assistant-input"
+            placeholder="Sorunu yaz..."
+            autocomplete="off"
+        />
+        <button type="submit">Gönder</button>
+    </form>
+</aside>
+
+<!-- Ürün Detay / Sipariş Modalı -->
+<div class="modal" id="product-modal">
+    <div class="modal-content" id="product-modal-content"></div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
+
